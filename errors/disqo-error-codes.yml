@@ -1,0 +1,120 @@
+generated: '2026-08-04'
+method: searched
+source: https://developer.disqo.com/docs/audience-api/
+docs:
+- https://developer.disqo.com/docs/audience-api/
+- https://developer.disqo.com/docs/coreg-api/
+format: vendor-json-array
+rfc9457: false
+envelope:
+  description: >-
+    Audience API errors are returned as a JSON ARRAY of objects, one per failing
+    field/condition — not as an RFC 9457 problem+json document, and not as a
+    single object. Content type is application/json.
+  shape: |
+    [
+      {
+        "errorCode": "002",
+        "message": "Invalid value for field 'cpi'"
+      }
+    ]
+  fields:
+  - {name: errorCode, type: string, description: Zero-padded three-digit DISQO error code}
+  - {name: message, type: string, description: Human-readable description of the failure}
+http_statuses:
+- status: 400
+  title: Bad Request
+  description: The server could not understand the request due to invalid syntax.
+  api: audience
+- status: 401
+  title: Unauthorized
+  description: Authentication is missing or the clientId/API key pair is invalid.
+  api: audience
+- status: 403
+  title: Forbidden
+  description: The client is authenticated but the request is refused for this resource.
+  api: audience
+- status: 404
+  title: Not Found
+  description: The requested resource does not exist.
+  api: audience
+- status: 409
+  title: Conflict
+  description: The resource already exists.
+  api: audience
+- status: 401
+  title: Unauthorized
+  description: Invalid or missing ApiKey authorization header.
+  api: coreg
+- status: 422
+  title: Unprocessable Entity
+  description: The request was well-formed but cannot be processed.
+  api: coreg
+error_codes:
+- code: '001'
+  name: EMPTY_REQUIRED_FIELD_FAIL_CODE
+  title: Required field missing
+  http: 400
+  remediation: Supply every required field on the request body before retrying.
+- code: '002'
+  name: INVALID_VALUE_FAIL_CODE
+  title: Invalid field value
+  http: 400
+  remediation: Correct the offending field to a value permitted by the documented enum/range.
+- code: '003'
+  name: RECORD_NOT_FOUND_FAIL_CODE
+  title: Resource not found
+  http: 404
+  remediation: Verify the clientId, projectId or quotaId path parameters.
+- code: '004'
+  name: RECORD_ALREADY_EXISTS_FAIL_CODE
+  title: Resource already exists
+  http: 409
+  remediation: Use the update (PUT/PATCH) operation instead of create, or choose a new id.
+coreg_response_codes:
+  description: >-
+    The CoReg API signals outcome in the response body rather than only via HTTP
+    status.
+  fields:
+  - {name: status, values: [success, failed]}
+  - {name: reason, values: ['null', duplicate, system offline]}
+callback_status_codes:
+  description: >-
+    Not API errors — these are the terminal disposition codes DISQO expects on
+    the panelist redirect/callback URL (status parameter). Included here because
+    they are the only outcome vocabulary an integrator must implement.
+  field: status
+  codes:
+  - {id: 1, meaning: Survey completed}
+  - {id: 2, meaning: Quota full}
+  - {id: 3, meaning: Panelist terminated}
+  - {id: 4, meaning: Survey rejected}
+  - {id: 5, meaning: Duplicate survey}
+  - {id: 6, meaning: Survey unavailable}
+  - {id: 7, meaning: No survey available}
+  - {id: 8, meaning: Screened out}
+  - {id: 9, meaning: Client rejected panelist}
+callback_substatus_codes:
+  description: Optional substatus refinement on the callback URL.
+  field: substatus
+  codes:
+  - {id: 100, meaning: Duplicate IP address}
+  - {id: 101, meaning: Duplicate device}
+  - {id: 102, meaning: Duplicate cookie}
+  - {id: 200, meaning: Speeder}
+  - {id: 201, meaning: Red herring / trap question failure}
+  - {id: 300, meaning: VPN detected}
+  - {id: 301, meaning: Country mismatch}
+  - {id: 302, meaning: Geolocation mismatch}
+gaps_to_push_back_to_provider:
+- >-
+  Errors are a bare JSON array of {errorCode, message}. Adopting RFC 9457
+  (application/problem+json) with a stable type URI per error would make failures
+  machine-classifiable instead of string-matched.
+- >-
+  Only four error codes (001-004) are published. Real failure modes —
+  insufficient feasibility, quota conflicts, project status transitions, auth
+  expiry — are not separately coded, so a client cannot programmatically
+  distinguish retryable from terminal failures.
+- >-
+  No documented retry guidance, no Retry-After, and no rate-limit error class.

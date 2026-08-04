@@ -1,0 +1,101 @@
+generated: '2026-08-04'
+method: searched
+source: https://developer.disqo.com/docs/audience-api/
+docs: https://developer.disqo.com/docs/audience-api/
+available: true
+self_service: false
+model: >-
+  DISQO runs a full parallel DEMO environment on a separate registrable domain
+  (disqo-demo.com) rather than a test-mode flag or a key prefix on production.
+  Credentials for DEMO are distinct from production and are issued by a named
+  integration contact — there is no self-service signup, no test key prefix, and
+  no publicly published test credentials.
+environments:
+- name: PROD
+  service: projects
+  url: https://projects-api.audience.disqo.com
+- name: DEMO
+  service: projects
+  url: https://projects-api.audience.disqo-demo.com
+- name: PROD
+  service: feasibility
+  url: https://feasibility-api.audience.disqo.com
+- name: DEMO
+  service: feasibility
+  url: https://feasibility-api.audience.disqo-demo.com
+- name: PROD
+  service: custom-questions
+  url: https://custom-questions-api.audience.disqo.com
+- name: DEMO
+  service: custom-questions
+  url: https://custom-questions-api.audience.disqo-demo.com
+- name: PROD
+  service: tracking-callback
+  url: https://go.audience.disqo.com/callback/
+- name: DEMO
+  service: tracking-callback
+  url: https://go.audience.disqo-demo.com/callback/
+credentials:
+  separation: separate clientId/API-key pair per environment
+  key_prefix: null
+  test_values_published: false
+  how_to_obtain: >-
+    "DEMO is a sandbox environment that can be used for testing. You will need
+    credentials to access it. Credentials can be requested by contacting your
+    integration contact."
+test_tooling:
+- name: Verify Clickable Projects
+  method: GET
+  url: https://go.audience.disqo-demo.com/verify/
+  description: >-
+    Lists the projects in the demo environment that are currently clickable, so
+    an integrator can confirm a project they created is live and enterable.
+  demo_only: true
+- name: Verify Returning from Survey
+  method: GET
+  url: https://go.audience.disqo-demo.com/verify/callback
+  description: >-
+    Verifies that the panelist redirect back to DISQO resolves correctly with the
+    supplied status and auth hash.
+  demo_only: true
+- name: Hashing and Decoding Walkthrough
+  description: >-
+    Documented walkthrough for generating and verifying the HMAC-SHA256 auth
+    parameter on entry links and callbacks, so the signature can be validated
+    before a live test.
+  url: https://developer.disqo.com/docs/audience-api/
+- name: Postman collection
+  description: >-
+    DISQO publishes a runnable public Postman collection covering Projects,
+    Quotas, Feasibility and the Testing/verify endpoints.
+  url: https://god.gw.postman.com/run-collection/17031997-e6346f68-81be-4a17-897c-d3bce4f0f655
+  file: postman/disqo-audience-api-postman.json
+assisted_testing:
+  description: >-
+    Once a project exists in DEMO and the hash has been tested, the integrator
+    notifies the DISQO Customer Success team, who send a real test panelist
+    through the flow to confirm the redirects behave as expected.
+  human_in_the_loop: true
+  source: https://developer.disqo.com/docs/audience-api/
+magic_values:
+  published: false
+  note: >-
+    DISQO publishes no magic test identifiers, seeded test panelist IDs, or
+    deterministic feasibility fixtures. Testing depends on the DEMO environment
+    plus a human-dispatched test panelist.
+time_simulation:
+  supported: false
+gaps_to_push_back_to_provider:
+- >-
+  No self-service sandbox. Every DEMO credential requires a human at DISQO, which
+  blocks evaluation before a sales conversation and blocks any automated or agent
+  driven integration.
+- >-
+  No published magic/test values (test panelist IDs, deterministic feasibility
+  responses, forced status/substatus triggers), so an integrator cannot unit-test
+  the nine callback status codes or the eight substatus codes without DISQO
+  dispatching a live person.
+- >-
+  DEMO lives on a separate registrable domain (disqo-demo.com) rather than a
+  subdomain of disqo.com — worth confirming its DNS/TLS posture is held to the
+  same standard as the production domain.

@@ -1,0 +1,77 @@
+generated: '2026-08-04'
+method: searched
+source: https://developer.disqo.com/docs/audience-api/
+versioning:
+  scheme: uri-path
+  current: v1
+  docs: https://developer.disqo.com/docs/audience-api/
+  policy_url: null
+  note: >-
+    Every documented Audience API path is under /v1/. No v2 exists and no
+    version-support window or migration policy is published.
+health:
+  endpoint: GET {baseUrl}/v1/info
+  returns: [version, date]
+  description: >-
+    Returns a unique hash identifier of the currently deployed version and the
+    date of deployment. Usable as a reachability check; not a status page.
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  evidence: >-
+    No deprecation policy, no RFC 8594 Sunset header, no Deprecation header, and
+    no notice period is documented. The changelog records additions only — no
+    entry in the published history announces a removal or a breaking change.
+  note: >-
+    Because no deprecation policy exists, NO `type: Deprecation` pointer is wired
+    in apis.yml.
+status_page:
+  url: null
+  evidence: >-
+    status.disqo.com does not resolve (DNS failure); no status/uptime page is
+    linked from www.disqo.com, developer.disqo.com, or the API documentation.
+    Reachability must be inferred from GET /v1/info.
+  note: >-
+    Because no status page exists, NO `type: StatusPage` pointer is wired in
+    apis.yml.
+sla:
+  url: null
+  uptime_target: null
+  evidence: >-
+    No public SLA. The API and Managed Services terms
+    (https://www.disqo.com/legal/api-managed-services-terms/) govern the
+    commercial relationship; no uptime commitment is published there.
+support:
+  email: integrations@disqo.com
+  contact_page: https://www.disqo.com/contact-us/
+  model: >-
+    Named integration contact plus a kickoff call. Access credentials for the
+    demo/sandbox environment are issued by that contact; there is no self-service
+    signup.
+onboarding:
+  steps:
+  - Kickoff call to discuss technical questions and scope
+  - DISQO issues demo (sandbox) credentials
+  - Build and test against the DEMO environment
+  - DISQO Customer Success sends a test panelist to verify redirects and hashing
+  - Production credentials issued and go-live
+  source: https://developer.disqo.com/docs/audience-api/
+deprecated_operations: []
+changelog:
+  see: changelog/disqo-changelog.yml
+  last_documented_change: '2023-11-01'
+  docs_last_updated: '2024-04-26'
+gaps_to_push_back_to_provider:
+- >-
+  No status page. DISQO should publish one (status.disqo.com) covering the
+  projects, feasibility and custom-questions services — buyers fielding live
+  studies have no incident channel.
+- >-
+  No deprecation policy and no Sunset/Deprecation header support (RFC 8594).
+- >-
+  No published SLA or uptime target for a service that gates live survey fielding.
+- >-
+  The Audience API documentation is stamped "Last Updated: 4/26/2024" and the
+  newest changelog entry is 2023-11-01 — the public contract has been static for
+  well over two years.

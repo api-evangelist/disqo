@@ -1,0 +1,28 @@
+generated: '2026-08-04'
+method: searched
+source: https://www.disqo.com/llms.txt
+files:
+- file: disqo-llms.txt
+  origin: verbatim
+  bytes: 4154
+  http_status: 200
+  content_type: text/plain
+  fetched: '2026-08-04'
+probes:
+- {url: 'https://www.disqo.com/llms.txt', status: 200}
+- {url: 'https://developer.disqo.com/llms.txt', status: 404}
+note: >-
+  DISQO publishes an llms.txt at the marketing host and it is saved verbatim — no
+  generated substitute is written. It is a WordPress-generated page index
+  (sitemap pointer, one-line company summary, and 24 marketing/legal page links)
+  and contains no API surface: neither developer.disqo.com, the Audience API, the
+  CoReg API, the Postman collection, nor any base URL appears in it. Several
+  entries are annotated "This should not be included in LLM search results."
+gaps_to_push_back_to_provider:
+- >-
+  The llms.txt omits the entire developer surface. Add developer.disqo.com, the
+  Audience API and CoReg API documentation, and the public Postman collection so
+  an agent reading llms.txt can find the API at all.
+- >-
+  Publish an llms.txt on developer.disqo.com (currently 404) scoped to the
+  developer docs.

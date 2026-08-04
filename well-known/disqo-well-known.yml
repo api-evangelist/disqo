@@ -1,0 +1,68 @@
+generated: '2026-08-04'
+method: probed
+source: live GET of /.well-known/* on every DISQO host in apis.yml
+summary:
+  documents_found: 0
+  note: >-
+    DISQO publishes no /.well-known/ discovery surface on any host — no
+    security.txt (RFC 9116), no OIDC discovery, no OAuth authorization-server
+    metadata, no api-catalog (RFC 9727), no ai-plugin.json, and no A2A agent
+    card. Every path below returned 404 (marketing/docs hosts) or 401 (the
+    Audience API hosts, which require HTTP Basic at the edge for every path).
+    Recorded as evidence of absence — no pointer is wired into apis.yml because
+    there is nothing to point at.
+hosts:
+- host: https://www.disqo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://developer.disqo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/openid-configuration, status: 404}
+  - {path: /.well-known/oauth-authorization-server, status: 404}
+  - {path: /.well-known/api-catalog, status: 404}
+  - {path: /.well-known/ai-plugin.json, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+- host: https://projects-api.audience.disqo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/openid-configuration, status: 401}
+  - {path: /.well-known/oauth-authorization-server, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/agent-card.json, status: 401}
+  - {path: /.well-known/agent.json, status: 401}
+- host: https://feasibility-api.audience.disqo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/agent-card.json, status: 401}
+  - {path: /.well-known/agent.json, status: 401}
+- host: https://custom-questions-api.audience.disqo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 401}
+  - {path: /.well-known/api-catalog, status: 401}
+  - {path: /.well-known/agent-card.json, status: 401}
+  - {path: /.well-known/agent.json, status: 401}
+- host: https://go.audience.disqo.com
+  documents:
+  - {path: /.well-known/security.txt, status: 404}
+  - {path: /.well-known/agent-card.json, status: 404}
+  - {path: /.well-known/agent.json, status: 404}
+gaps_to_push_back_to_provider:
+- >-
+  security.txt (RFC 9116) at https://www.disqo.com/.well-known/security.txt —
+  DISQO has no published vulnerability-disclosure contact on any host.
+- >-
+  api-catalog (RFC 9727) at https://developer.disqo.com/.well-known/api-catalog —
+  would make the Audience, Feasibility, Custom Questions and CoReg APIs
+  machine-discoverable from one document.
+x-evidence:
+  fetched: '2026-08-04'
+  method: curl -s -o /dev/null -w '%{http_code}' -L per path per host

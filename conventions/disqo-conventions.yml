@@ -1,0 +1,121 @@
+generated: '2026-08-04'
+method: searched
+source: https://developer.disqo.com/docs/audience-api/
+docs:
+- https://developer.disqo.com/docs/audience-api/
+- https://developer.disqo.com/docs/coreg-api/
+style:
+  architecture: REST
+  methods_used: [GET, POST, PUT, PATCH, DELETE]
+  media_type: application/json
+  naming: lowerCamelCase JSON fields; camelCase path segments (includedUsers, excludedProjects)
+  path_shape: /v1/clients/{clientId}/projects/{projectId}/{sub-resource}
+  note: >-
+    Tenancy is expressed in the path — every Audience API resource is nested
+    under /clients/{clientId}, and the same clientId is also the HTTP Basic
+    username. Multi-tenant clients therefore carry the tenant twice.
+authentication:
+  audience: HTTP Basic (clientId:apiKey, base64)
+  coreg: 'Authorization: ApiKey {key}'
+  see: authentication/disqo-authentication.yml
+versioning:
+  scheme: uri-path
+  current: v1
+  header_versioning: false
+  date_versioning: false
+  health_endpoint: GET {baseUrl}/v1/info
+  health_response_fields: [version, date]
+  note: >-
+    /v1/info returns a unique hash identifier of the currently deployed version
+    plus a deployment date. It is a build stamp, not a semantic API version — a
+    client cannot pin behaviour to it.
+  see: lifecycle/disqo-lifecycle.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    No Idempotency-Key header, no idempotency section, and no retry-safety
+    guidance appears anywhere in the Audience API or CoReg API documentation, nor
+    in the published Postman collection. Project and Quota creation are plain
+    POSTs with a client-supplied id field; re-POSTing an existing id returns 409
+    RECORD_ALREADY_EXISTS_FAIL_CODE, which is a natural-key collision, not an
+    idempotency contract.
+  note: >-
+    Because there is no idempotency support, NO `type: Idempotency` pointer is
+    wired in apis.yml. Do not add one on a later pass unless DISQO publishes one.
+pagination:
+  supported: false
+  evidence: >-
+    List Projects and List Quotas take no page/limit/offset/cursor parameters and
+    return bare arrays. The only list filter documented is `status` on List
+    Projects (added June 17, 2022 per the changelog). Large clients have no
+    documented way to page a project history.
+filtering:
+  list_projects:
+  - {param: status, values: [OPEN, CLOSED, COMPLETED, HOLD]}
+field_expansion:
+  supported: false
+sparse_fieldsets:
+  supported: false
+metadata:
+  supported: partial
+  fields:
+  - {name: trackingField, description: Client-supplied tracking value echoed through the panelist flow}
+  - {name: buyer, description: Friendly name for the buyer}
+  - {name: 'tid / pid', description: Transaction and panelist identifiers carried on the entry link and callback}
+request_tracing:
+  request_id_header: null
+  supported: false
+  evidence: No correlation/request-id header is documented on request or response.
+partial_update:
+  supported: true
+  method: PATCH
+  note: >-
+    Both PUT (full replace) and PATCH (partial) are offered on Projects and
+    Quotas. Status transitions have their own dedicated sub-resource
+    (PUT .../status) rather than being a field update.
+error_envelope:
+  format: JSON array of {errorCode, message}
+  rfc9457: false
+  see: errors/disqo-error-codes.yml
+rate_limiting:
+  documented: false
+  headers: null
+  evidence: >-
+    No rate limits, quotas, throttling behaviour, 429 status, or Retry-After
+    guidance is documented for any DISQO API.
+callbacks_and_redirects:
+  model: browser-redirect with signed query string (not server-to-server webhooks)
+  entry_link_params: [clientId, projectId, quotaIds, supplierId, tid, pid]
+  return_params: [status, substatus, auth]
+  signature: HMAC-SHA256, URL-safe base64, unpadded, over all params preceding &auth
+  demographic_passthrough:
+  - {param: V100001, meaning: age}
+  - {param: Q2, meaning: gender}
+  - {param: Q6, meaning: state}
+  - {param: Q7, meaning: postal code}
+  - {param: Q13, meaning: ethnicity}
+  - {param: Q15, meaning: Hispanic origin}
+  - {param: Q36, meaning: household income}
+  - {param: Q38, meaning: employment}
+  - {param: Q40, meaning: job title}
+  note: >-
+    This is a redirect contract, NOT a webhook surface. DISQO does not POST
+    events to a client-hosted endpoint, so no AsyncAPI/Webhooks artifact is
+    emitted for this provider.
+concurrency_controls:
+  etag: false
+  if_match: false
+  optimistic_locking: false
+cross_links:
+  errors: errors/disqo-error-codes.yml
+  lifecycle: lifecycle/disqo-lifecycle.yml
+  authentication: authentication/disqo-authentication.yml
+  sandbox: sandbox/disqo-sandbox.yml
+  data_model: data-model/disqo-data-model.yml
+gaps_to_push_back_to_provider:
+- No idempotency key on Project/Quota creation — a retried POST after a timeout is unsafe.
+- No pagination on list endpoints.
+- No rate-limit documentation or response headers.
+- No request-id / correlation header for support triage.
+- Errors are not RFC 9457.

@@ -1,0 +1,30 @@
+﻿The XML sitemap of this website can be found by following [this link](https://www.disqo.com/sitemap_index.xml).
+
+# Disqo
+
+> DISQO empowers marketers with cross\-platform, AI\-driven insights grounded in human answers and behaviors\. No more blind spots in social or CTV\.D
+
+## Pages
+- [Platform](https://www.disqo.com/products/platform/):Overview of the DISQO platform architecture. Includes details around deterministic identity data, channels measured, metrics measured, and platforms measured.
+- [Contact Us](https://www.disqo.com/contact-us/):Contact form to reach someone at DISQO about brand lift measurement, outcomes lift measurement, managed services and API, SurveyJunkie, or about careers.
+- [Privacy Policy](https://www.disqo.com/privacy-policy/):Disclosures about DISQO's privacy policy.
+- [Agencies\-Solutions](https://www.disqo.com/solutions/ad-agencies/):Details around how DISQO's ad measurement platform - brand lift and outcomes lift -  serves agencies that serve consumer brands. 
+- [API](https://www.disqo.com/products/audience-api/):Details about the DISQO API as part of our Managed Services products.
+- [Brand Lift](https://www.disqo.com/products/brand-lift/):Product information about DISQO's Brand Lift measurement solution.
+- [Brands\-Solutions](https://www.disqo.com/solutions/consumer-brands/):Details around how DISQO's ad measurement platform serves consumer brands through brand lift and outcomes lift measurement. 
+- [Cross\-Platform Differentiator](https://www.disqo.com/solutions/cross-platform/):Details around DISQO's ability to measure every ad exposure across every platform, including social media.
+- [FAQ Full List](https://www.disqo.com/disqo-frequently-asked-questions/):Comprehensive list of DISQO FAQs.
+- [Homepage](https://www.disqo.com/):DISQO's homepage with an overview of the company and it's differentiators.
+- [Media Companies\-Solutions](https://www.disqo.com/solutions/media-and-publishing/):Details around how DISQO's ad measurement platform serves media companies. It includes information about a free, brand lift product, as well as a premium solution that includes both brand lift and outcomes lift for media companies.
+- [Outcomes Lift](https://www.disqo.com/products/outcomes-lift/):Product information about DISQO's Outcomes Lift measurement solution.
+- [Research Management](https://www.disqo.com/products/research-management/):Details about our market research management services.
+- [TV Measurement\-Solutions](https://www.disqo.com/solutions/tv-measurement/):Use case details about DISQO's TV measurement capabilities.
+- [World\-Class Expertise](https://www.disqo.com/world-class-expertise/):Information about our customer success experts that support clients at every stage of the campaign process.
+- [Resources](https://www.disqo.com/resources/):Resources hub with DISQO-generated reports, benchmarks, case studies, and articles that provide insights about the ad measurement industry and DISQO's platform.
+- [Solutions](https://www.disqo.com/solutions/):Solutions for brands, agencies, and media companies. Includes use cases around cross-platform measurement, tv measurement, and performance outcomes.
+- [ADM terms](https://www.disqo.com/legal/admterms/):Legal terms for our ad measurement platform. This should not be included in LLM search results.
+- [API AND MANAGED SERVICES TERMS AND CONDITIONS](https://www.disqo.com/legal/api-managed-services-terms/):Legal terms for our API and Managed Services product. This should not be included in LLM search results.
+- [DISQO TERMS AND CONDITIONS](https://www.disqo.com/legal/disqo-terms-and-conditions/):Legal terms for DISQO. This should not be included in LLM search results.
+- [DISQO TERMS AND CONDITIONS EXPERIENCE SUITE ONLINE ORDERS](https://www.disqo.com/legal/xps-online-order/):Legal terms for DISQO. This should not be included in LLM search results.
+- [Referral Program Terms & Conditions](https://www.disqo.com/referral-program-terms-and-conditions/):Legal terms for DISQO's referral program. This should not be included in LLM search results.
+- [Careers](https://www.disqo.com/careers/):Information about careers at DISQO.

@@ -1,0 +1,26 @@
+generated: '2026-08-04'
+method: probed
+source: live DNS/TLS/HTTP probes of apis.yml + OpenAPI hosts
+hosts:
+- host: www.disqo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 14:49:23 2026 GMT
+  hsts: null
+- host: developer.disqo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 14:49:23 2026 GMT
+  hsts: null
+- host: projects-api.audience.disqo.com
+  https: true
+  tls_version: TLSv1.3
+  cert_expires: Oct  8 14:49:23 2026 GMT
+  hsts: null
+domains:
+- domain: disqo.com
+  dnssec: false
+  caa: []
+  spf: true
+  dmarc: true
+  dmarc_policy: reject

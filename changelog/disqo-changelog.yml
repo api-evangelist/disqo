@@ -1,0 +1,101 @@
+generated: '2026-08-04'
+method: searched
+source: https://developer.disqo.com/docs/audience-api/#changelog
+scheme:
+  versioning: uri-path (v1)
+  format: dated prose entries, newest first, embedded in the Audience API docs page
+  standalone_page: false
+  feed: null
+current_version: v1
+docs_last_updated: '2024-04-26'
+latest_entry: '2023-11-01'
+note: >-
+  DISQO does not publish a standalone changelog page or feed. The change history
+  lives as a section at the bottom of the Audience API Slate documentation.
+  Entries are additive only — no breaking change or removal appears in the
+  published history. Captured verbatim from the docs.
+entries:
+- date: '2023-11-01'
+  breaking: false
+  additions:
+  - A ttl optional value has been added to the Included Users with a specified inviteId attached endpoint.
+- date: '2023-08-25'
+  breaking: false
+  additions:
+  - >-
+    A new endpoint was added for Included Users. POST and GET requests can now be
+    made to /v1/clients/{clientId}/projects/{projectId}/includedUsers/invite.
+    Calls are optional, but all properties are required when executed — absence of
+    any property results in 400 Bad Request for POST and 404 Not Found for GET.
+- date: '2022-06-17'
+  breaking: false
+  additions:
+  - >-
+    Status parameter was added to the List Project endpoint to retrieve a
+    client's projects with OPEN, CLOSE, COMPLETED, or HOLD statuses.
+- date: '2022-05-18'
+  breaking: false
+  additions:
+  - Demographic details were added to the entry link.
+- date: '2022-03-22'
+  breaking: false
+  additions:
+  - Launch the Create Included Users with a specified TTL attached endpoint.
+- date: '2021-06-02'
+  breaking: false
+  additions:
+  - Launch the Info endpoint.
+- date: '2021-03-16'
+  breaking: false
+  additions:
+  - Launch the Rate Card endpoint.
+- date: '2020-12-16'
+  breaking: false
+  additions:
+  - Launch the Verify Clickable Projects endpoint.
+  - Launch the Verify Returning from Survey endpoint.
+- date: '2020-11-29'
+  breaking: false
+  additions:
+  - Launch the Custom Questions endpoints.
+- date: '2020-06-03'
+  breaking: false
+  additions:
+  - >-
+    Add Click Balancing, which allows fine-tuned control over how many panelists
+    enter or complete a survey.
+- date: '2020-04-15'
+  breaking: false
+  additions:
+  - >-
+    Add the ability to indicate percentage allocation (100% meaning exclusive
+    allocation to a supplier) using the allocation attribute.
+- date: '2020-04-03'
+  breaking: false
+  additions:
+  - Support geousregion as a project and quota qualification.
+- date: '2020-03-31'
+  breaking: false
+  additions:
+  - Launch the Feasibility endpoint.
+- date: '2020-02-18'
+  breaking: false
+  additions:
+  - >-
+    Launch the Excluded Projects endpoint, providing the ability to exclude users
+    based on participation in previous projects.
+- date: '2020-01-23'
+  breaking: true
+  additions:
+  - Add support for inclusion list of user IDs (recontacts) and exclusion lists per project.
+  breaking_changes:
+  - Supplier ID is now required per project.
+gaps_to_push_back_to_provider:
+- >-
+  Publish the changelog as its own page with a stable URL and an RSS/Atom feed —
+  today it is a section of a 300KB single-page Slate document with no anchor a
+  client can subscribe to.
+- >-
+  The newest published entry is 2023-11-01. Either the API has not changed in
+  nearly three years, or the changelog is no longer maintained; integrators
+  cannot tell which.

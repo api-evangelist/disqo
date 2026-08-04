@@ -1,0 +1,33 @@
+generated: '2026-08-04'
+method: searched
+source: https://www.postman.com/collections/17031997-e6346f68-81be-4a17-897c-d3bce4f0f655
+collections:
+- file: disqo-audience-api-postman.json
+  name: DISQO Audience API
+  schema: https://schema.getpostman.com/json/collection/v2.0.0/collection.json
+  collection_id: e6346f68-81be-4a17-897c-d3bce4f0f655
+  owner_id: '17031997'
+  workspace_id: 4e28e12b-203d-4579-8f47-49d53021e892
+  run_url: https://god.gw.postman.com/run-collection/17031997-e6346f68-81be-4a17-897c-d3bce4f0f655
+  linked_from: https://developer.disqo.com/docs/audience-api/
+  auth: basic
+  folders:
+  - name: Projects
+    requests: 7
+  - name: Quotas
+    requests: 8
+  - name: Feasibility
+    requests: 1
+  - name: Testing
+    requests: 2
+  requests: 18
+notes: >-
+  DISQO links this public Postman collection directly from the Audience API
+  documentation as the runnable form of the API. It is the only machine-readable
+  contract DISQO publishes anonymously — there is no anonymous OpenAPI (see
+  x-evidence in conformance/disqo-conformance.yml).
+x-evidence:
+  fetched: '2026-08-04'
+  url: https://www.postman.com/collections/17031997-e6346f68-81be-4a17-897c-d3bce4f0f655
+  http_status: 200
+  content_type: application/json

@@ -1,0 +1,132 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  https://developer.disqo.com/docs/audience-api/ (object reference + endpoint
+  paths) and postman/disqo-audience-api-postman.json
+note: >-
+  DERIVED from DISQO's own published object reference and resource paths, not
+  from an OpenAPI — DISQO publishes no anonymous machine-readable spec. Every
+  entity, field and relationship below appears verbatim in the documentation or
+  is implied by a documented URL path. Nothing is invented; where the docs do not
+  state a cardinality it is marked unknown.
+entities:
+- name: Client
+  description: The DISQO Audience customer. Root of every Audience API path and the HTTP Basic username.
+  identifier: clientId
+  identifier_type: integer
+  path: /v1/clients/{clientId}
+- name: Project
+  description: >-
+    A study for which a company seeks to gather qualified panelists. The central
+    Audience API resource.
+  identifier: id
+  identifier_type: string
+  client_supplied_id: true
+  path: /v1/clients/{clientId}/projects/{projectId}
+  required_on_create: [completesWanted, conversionRate, cpi, country, devices, id, loi, qualifications, studyType, supplierId, url]
+  fields: [id, clientId, supplierId, buyer, name, studyType, allocation, url, redirectUrl,
+    loi, conversionRate, cpi, country, devices, hasExcludedUsers, hasIncludedUsers,
+    hasExcludedProjects, clicksWanted, completesWanted, currentClicks, currentCompletes,
+    enforceScreenOut, trackingField, status, qualifications, createdAt, updatedAt,
+    completedAt, closedAt, autoCloseAt]
+  status_values: [OPEN, HOLD, COMPLETED, CLOSED, HOLD_FOR_USER_INCLUSION_LIST, HOLD_FOR_USER_EXCLUSION_LIST,
+    HOLD_FOR_USER_INCLUSION_AND_EXCLUSION_LIST]
+  study_types: [ad hoc, tracker, wave]
+  device_values: [DESKTOP, PHONE, TABLET]
+- name: Quota
+  description: >-
+    Criteria belonging to a Project that match members of the DISQO panelist pool
+    with the qualifying project. Carries its own targets and its own CPI.
+  identifier: id
+  path: /v1/clients/{clientId}/projects/{projectId}/quotas/{quotaId}
+  fields: [id, cpi, status, clicksWanted, completesWanted, currentClicks, currentCompletes,
+    qualifications, createdAt, updatedAt]
+  status_values: [PAUSED, LIVE]
+- name: Qualification
+  description: >-
+    A targeting condition drawn from DISQO's library of 100+ panelist attributes
+    (plus geousregion and client-defined Custom Questions). Embedded on both
+    Project and Quota rather than addressed as its own resource.
+  addressable: false
+  embedded_on: [Project, Quota]
+- name: CustomQuestion
+  description: >-
+    A client-defined pre-screening question that can be used as a qualification
+    beyond the standard attribute library.
+  identifier: questionKey
+  path: /v1/clients/{clientId}/questions/{questionKey}
+  host: https://custom-questions-api.audience.disqo.com
+- name: IncludedUser
+  description: >-
+    A DISQO user ID explicitly allowed into a Project — the recontact / wave-study
+    mechanism. Sub-collections support a TTL variant and an inviteId variant.
+  path: /v1/clients/{clientId}/projects/{projectId}/includedUsers
+  variants:
+  - /v1/clients/{clientId}/projects/{projectId}/includedUsers/ttl
+  - /v1/clients/{clientId}/projects/{projectId}/includedUsers/inviteId
+- name: ExcludedUser
+  description: A DISQO user ID explicitly barred from a Project.
+  path: /v1/clients/{clientId}/projects/{projectId}/excludedUsers
+- name: ExcludedProject
+  description: >-
+    A prior Project whose participants are excluded from this Project — dedupe
+    across waves and competitive studies.
+  path: /v1/clients/{clientId}/projects/{projectId}/excludedProjects
+- name: Supplier
+  description: >-
+    The sample supplier a Project is attributed to. Required per project since
+    2020-01-23. Referenced by id only; no supplier resource is exposed.
+  identifier: supplierId
+  addressable: false
+- name: FeasibilityEstimate
+  description: >-
+    A projection of the number of panelists available for a proposed set of
+    qualifications, before a Project exists.
+  path: /v1/number-of-panelists/
+  host: https://feasibility-api.audience.disqo.com
+  addressable: false
+  persisted: false
+- name: DeploymentInfo
+  description: Version hash and deployment date of the currently running service.
+  path: /v1/info
+  fields: [version, date]
+relationships:
+- {from: Client, to: Project, type: has_many, via: clientId, evidence: 'path /v1/clients/{clientId}/projects'}
+- {from: Project, to: Client, type: belongs_to, via: clientId, evidence: Project.clientId field}
+- {from: Project, to: Quota, type: has_many, via: projectId, evidence: 'path /v1/clients/{clientId}/projects/{projectId}/quotas'}
+- {from: Quota, to: Project, type: belongs_to, via: projectId, evidence: 'docs: "Quotas belong to Projects"'}
+- {from: Project, to: Qualification, type: has_many, via: qualifications, evidence: Project.qualifications array}
+- {from: Quota, to: Qualification, type: has_many, via: qualifications, evidence: Quota.qualifications array}
+- {from: Project, to: IncludedUser, type: has_many, via: projectId, evidence: 'path .../includedUsers; Project.hasIncludedUsers boolean'}
+- {from: Project, to: ExcludedUser, type: has_many, via: projectId, evidence: 'path .../excludedUsers; Project.hasExcludedUsers boolean'}
+- {from: Project, to: ExcludedProject, type: has_many, via: projectId, evidence: 'path .../excludedProjects; Project.hasExcludedProjects boolean'}
+- {from: Project, to: Supplier, type: belongs_to, via: supplierId, evidence: supplierId required on create}
+- {from: Client, to: CustomQuestion, type: has_many, via: clientId, evidence: 'path /v1/clients/{clientId}/questions'}
+- {from: Project, to: CustomQuestion, type: references, via: qualifications, cardinality: unknown, evidence: 'docs describe custom questions as usable qualifications; the binding field is not documented'}
+identifier_domains:
+- {entity: Project, id: client-supplied string, example_shape: '1kaUEfpl8SChTbqK', prefix: null}
+- {entity: Client, id: integer, prefix: null}
+lifecycle_state_machines:
+- entity: Project
+  transition_endpoint: PUT /v1/clients/{clientId}/projects/{projectId}/status
+  states: [OPEN, HOLD, COMPLETED, CLOSED, HOLD_FOR_USER_INCLUSION_LIST, HOLD_FOR_USER_EXCLUSION_LIST,
+    HOLD_FOR_USER_INCLUSION_AND_EXCLUSION_LIST]
+  timestamps: [createdAt, updatedAt, completedAt, closedAt, autoCloseAt]
+  note: >-
+    The set of legal transitions between these states is NOT documented; only the
+    state vocabulary is published.
+- entity: Quota
+  transition_endpoint: PUT /v1/clients/{clientId}/projects/{projectId}/quotas/{quotaId}/status
+  states: [PAUSED, LIVE]
+gaps_to_push_back_to_provider:
+- >-
+  No machine-readable schema. Publishing these entities as OpenAPI
+  components.schemas (or JSON Schema) at a public URL would let clients and
+  agents validate payloads instead of hand-transcribing a documentation table.
+- >-
+  The Project status state machine publishes seven states but no legal-transition
+  matrix, so a client cannot know which PUT .../status calls will be rejected.
+- >-
+  Qualification is the most important object in the product (100+ attributes) and
+  has no addressable resource — there is no way to enumerate the available
+  qualification keys and their permitted values over the API.

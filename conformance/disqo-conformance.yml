@@ -1,0 +1,136 @@
+generated: '2026-08-04'
+method: derived
+source: >-
+  https://developer.disqo.com/docs/audience-api/,
+  https://developer.disqo.com/docs/coreg-api/,
+  postman/disqo-audience-api-postman.json, live probes 2026-08-04
+note: >-
+  Derived from DISQO's published documentation and live probes. No published
+  certification or compliance program was found, so NO `type: Compliance`
+  pointer is wired in apis.yml.
+standards:
+- id: rest
+  conforms: true
+  evidence: 'Docs state "The DISQO Audience API is RESTful and uses the methods POST, GET, PUT, and DELETE"; resource-nested paths with PATCH and DELETE also documented.'
+- id: json
+  conforms: true
+  evidence: 'Docs state "Responses are returned in JSON format"; Postman collection sends and receives application/json.'
+- id: rfc7617-http-basic
+  conforms: true
+  evidence: 'Audience API auth is HTTP Basic — base64(clientId:apiKey) in the Authorization header.'
+- id: rfc2104-hmac
+  conforms: true
+  evidence: 'Entry-link and callback integrity uses HMAC-SHA256 over all parameters preceding &auth.'
+- id: rfc4648-base64url
+  conforms: true
+  evidence: 'Callback auth signature is specified as URL-safe base64 without padding.'
+- id: iso3166-1-alpha2
+  conforms: true
+  evidence: 'Project.country documented as "the two-letter ISO country code".'
+- id: postman-collection-v2
+  conforms: true
+  evidence: 'Public collection declares schema https://schema.getpostman.com/json/collection/v2.0.0/collection.json'
+- id: openapi
+  conforms: false
+  evidence: >-
+    No anonymous OpenAPI/Swagger document exists. Probed /openapi.json,
+    /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /docs, /redoc,
+    /v3/api-docs and /swagger/v1/swagger.json against projects-api,
+    feasibility-api and custom-questions-api hosts (all 401 — Basic auth is
+    enforced at the edge for every path) and against developer.disqo.com and
+    www.disqo.com (all 404). Documentation is Slate-generated prose.
+- id: asyncapi
+  conforms: false
+  evidence: >-
+    No event surface. DISQO's callback model is a browser redirect with a signed
+    query string, not server-to-server webhooks, so there is nothing for AsyncAPI
+    to describe.
+- id: graphql
+  conforms: false
+  evidence: No /graphql surface on any documented host.
+- id: mcp
+  conforms: false
+  evidence: No MCP server published or referenced in docs, npm, or the MCP registries.
+- id: a2a-agent-card
+  conforms: false
+  evidence: '/.well-known/agent-card.json and /.well-known/agent.json probed on every host — 404 (web/docs) or 401 (API hosts).'
+- id: oauth2
+  conforms: false
+  evidence: No OAuth 2.0 anywhere; HTTP Basic and an ApiKey header only.
+- id: openid-connect
+  conforms: false
+  evidence: /.well-known/openid-configuration returns 404/401 on every host.
+- id: rfc8414-oauth-metadata
+  conforms: false
+  evidence: /.well-known/oauth-authorization-server returns 404/401 on every host.
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Errors are a bare JSON array of {errorCode, message}, not application/problem+json.'
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: /.well-known/security.txt returns 404 on www.disqo.com and developer.disqo.com.
+- id: rfc9727-api-catalog
+  conforms: false
+  evidence: /.well-known/api-catalog returns 404/401 on every host.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset or Deprecation header support and no deprecation policy documented.
+- id: rfc6585-429-rate-limiting
+  conforms: false
+  evidence: No rate limits, 429 handling, or Retry-After guidance documented.
+- id: llms-txt
+  conforms: true
+  evidence: 'https://www.disqo.com/llms.txt returns 200 text/plain (4,154 bytes) — saved verbatim to llms/disqo-llms.txt.'
+- id: dnssec
+  conforms: false
+  evidence: 'security/disqo-domain-security.yml — disqo.com dnssec: false'
+- id: caa
+  conforms: false
+  evidence: 'security/disqo-domain-security.yml — no CAA records on disqo.com'
+- id: spf
+  conforms: true
+  evidence: 'security/disqo-domain-security.yml — SPF present on disqo.com'
+- id: dmarc
+  conforms: true
+  evidence: 'security/disqo-domain-security.yml — DMARC present, policy: reject'
+- id: hsts
+  conforms: false
+  evidence: 'security/disqo-domain-security.yml — no Strict-Transport-Security header observed on www.disqo.com, developer.disqo.com, or projects-api.audience.disqo.com'
+- id: tls13
+  conforms: true
+  evidence: 'security/disqo-domain-security.yml — TLSv1.3 negotiated on all probed hosts'
+certifications:
+  published: false
+  evidence: >-
+    No trust center, no /security or /trust page (both 404 on www.disqo.com), and
+    no SOC 2 / ISO 27001 / HIPAA / PCI / FedRAMP claim found on disqo.com or in
+    search. probe-security-programs.py returned vdp=none trust=none on
+    2026-08-04. DISQO publishes a privacy policy and marketing collateral about
+    panel trust and data quality, which is not a certification claim.
+regulatory_context:
+  note: >-
+    DISQO handles first-party consumer behavioural and demographic data at scale,
+    which places it squarely in CCPA/CPRA and GDPR territory, and the Audience API
+    passes demographic attributes (age, gender, state, postal code, ethnicity,
+    Hispanic origin, household income, employment, job title) through the entry
+    link query string. No published compliance posture backs that data flow.
+  privacy_policy: https://www.disqo.com/privacy-policy/
+gaps_to_push_back_to_provider:
+- >-
+  Publish an OpenAPI 3.1 description of the Audience, Feasibility and Custom
+  Questions APIs at a stable anonymous URL. The Postman collection proves the
+  contract is already modelled internally.
+- >-
+  Publish /.well-known/security.txt (RFC 9116) with a security contact and
+  disclosure policy.
+- >-
+  Publish a trust/compliance page naming actual certifications. A first-party
+  consumer-data business with no public compliance posture is a procurement
+  blocker.
+- >-
+  Enable HSTS on www.disqo.com, developer.disqo.com and the API hosts, and add
+  CAA records to disqo.com.
+- >-
+  Demographic attributes are passed on the entry-link query string. Query strings
+  land in logs, referrers and browser history — consider moving them to a
+  server-side lookup keyed by tid.

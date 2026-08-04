@@ -42,5 +42,44 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DISQO is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/disqo_stock/
+DISQO is a Glendale, California consumer-insights and advertising-measurement company that
+operates a first-party, fully opted-in consumer panel and sells programmatic access to it.
+
+- Website: https://www.disqo.com/
+- Developer portal: https://developer.disqo.com/
+- Documentation: https://developer.disqo.com/documentation/
+
+## APIs profiled
+
+| API | Base URL | Auth | Docs |
+|---|---|---|---|
+| Audience Projects API | `https://projects-api.audience.disqo.com` | HTTP Basic | [docs](https://developer.disqo.com/docs/audience-api/) |
+| Audience Feasibility API | `https://feasibility-api.audience.disqo.com` | HTTP Basic | [docs](https://developer.disqo.com/docs/audience-api/) |
+| Audience Custom Questions API | `https://custom-questions-api.audience.disqo.com` | HTTP Basic | [docs](https://developer.disqo.com/docs/audience-api/) |
+| CoReg API | `https://coreg.us.sjapis.com/api` | `Authorization: ApiKey` | [docs](https://developer.disqo.com/docs/coreg-api/) |
+
+## What DISQO publishes
+
+- A public **Postman collection** for the Audience API (18 requests), linked from the docs — captured
+  verbatim in `postman/`.
+- A dated **changelog** embedded in the Audience API documentation — captured in `changelog/`.
+- A full parallel **DEMO/sandbox environment** on `disqo-demo.com`, with `verify` endpoints — `sandbox/`.
+- An **llms.txt** at `https://www.disqo.com/llms.txt` — captured verbatim in `llms/`.
+- A published **error-code registry** and callback status/substatus vocabulary — `errors/`.
+
+## What DISQO does not publish
+
+Recorded as evidence of absence, with the probe results, in the artifacts:
+
+- **No OpenAPI / Swagger.** Probed nine spec paths against all three Audience API hosts (all `401` —
+  HTTP Basic is enforced at the edge for every path) and against the docs and marketing hosts (all
+  `404`). See `conformance/disqo-conformance.yml`.
+- **No `/.well-known/` surface at all** — no `security.txt`, no `api-catalog`, no agent card. See
+  `well-known/disqo-well-known.yml`.
+- **No official SDK on any package registry**, and no `github.com/disqo` organization. See `packages/`.
+- **No status page, no SLA, no deprecation policy.** See `lifecycle/`.
+- **No idempotency, no pagination, no documented rate limits.** See `conventions/`.
+- **No trust center or named certification.** See `conformance/`.
+
+Each artifact carries a `gaps_to_push_back_to_provider` block naming the gap and where DISQO should
+publish the fix.

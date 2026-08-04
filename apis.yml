@@ -1,18 +1,102 @@
 aid: disqo
 name: DISQO
-description: 'DISQO is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: 'DISQO is a Glendale, California consumer-insights and advertising-measurement
+  company that operates a first-party, fully opted-in consumer panel and sells programmatic
+  access to it. Its public API surface is the DISQO Audience API — a RESTful, HTTP
+  Basic authenticated set of services for checking sample feasibility, creating and
+  managing survey projects and quotas, attaching custom screening questions, and managing
+  included/excluded panelist and project lists — plus a redirect/callback tracking
+  contract that returns panelists to DISQO with an HMAC-SHA256 signed status. A separate
+  CoReg API validates email addresses for co-registration flows. DISQO also sells Brand
+  Lift, Outcomes Lift, Research Management and cross-platform ad measurement products
+  on top of the same panel.'
 url: https://raw.githubusercontent.com/api-evangelist/disqo/refs/heads/main/apis.yml
+image: https://www.disqo.com/wp-content/uploads/2025/11/HomePage_Header.png
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
-apis: []
+- Audience
+- Market Research
+- Surveys
+- Consumer Insights
+- Advertising Measurement
+- Panel
+- Brand Lift
+- Data
+- Analytics
+apis:
+- name: DISQO Audience Projects API
+  description: 'Create, list, retrieve, update and delete survey Projects and their
+    Quotas against the DISQO panel, and manage the included-users, excluded-users and
+    excluded-projects lists that drive recontact and wave studies. Projects carry completesWanted,
+    conversionRate, cpi, country, devices, loi, studyType, supplierId and a qualifications
+    set drawn from over 100 panelist attributes.'
+  humanURL: https://developer.disqo.com/docs/audience-api/
+  baseURL: https://projects-api.audience.disqo.com
+  tags:
+  - Projects
+  - Quotas
+  - Surveys
+  - Audience
+  properties:
+  - type: Documentation
+    url: https://developer.disqo.com/docs/audience-api/
+  - type: Authentication
+    url: authentication/disqo-authentication.yml
+  - type: ErrorCatalog
+    url: errors/disqo-error-codes.yml
+  - type: Postman
+    url: postman/disqo-audience-api-postman.json
+  - type: Sandbox
+    url: sandbox/disqo-sandbox.yml
+  - type: DataModel
+    url: data-model/disqo-data-model.yml
+- name: DISQO Audience Feasibility API
+  description: 'Estimate the number of panelists — feasible completes — available for
+    a given set of qualifications, country, device mix, length of interview and incidence
+    rate before a project is created and fielded.'
+  humanURL: https://developer.disqo.com/docs/audience-api/
+  baseURL: https://feasibility-api.audience.disqo.com
+  tags:
+  - Feasibility
+  - Audience
+  - Surveys
+  properties:
+  - type: Documentation
+    url: https://developer.disqo.com/docs/audience-api/
+- name: DISQO Audience Custom Questions API
+  description: 'List, retrieve and create client-specific custom screening questions
+    that can be attached to a project as pre-screening qualifications beyond the standard
+    DISQO panelist attribute library.'
+  humanURL: https://developer.disqo.com/docs/audience-api/
+  baseURL: https://custom-questions-api.audience.disqo.com
+  tags:
+  - Custom Questions
+  - Audience
+  - Surveys
+  properties:
+  - type: Documentation
+    url: https://developer.disqo.com/docs/audience-api/
+- name: DISQO CoReg API
+  description: 'Validate an email address for co-registration flows — checks address
+    format, whether the address already exists in the DISQO system, and optionally
+    runs an Email Oversight verification. Authenticated with an ApiKey authorization
+    header.'
+  humanURL: https://developer.disqo.com/docs/coreg-api/
+  baseURL: https://coreg.us.sjapis.com/api
+  tags:
+  - Email Validation
+  - CoReg
+  - Identity
+  properties:
+  - type: Documentation
+    url: https://developer.disqo.com/docs/coreg-api/
+  - type: Authentication
+    url: authentication/disqo-authentication.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -20,4 +104,49 @@ maintainers:
   email: info@apis.io
 common:
 - type: Website
-  url: https://forgeglobal.com/disqo_stock/
+  url: https://www.disqo.com/
+- type: DeveloperPortal
+  url: https://developer.disqo.com/
+- type: Documentation
+  url: https://developer.disqo.com/documentation/
+- type: APIReference
+  url: https://developer.disqo.com/docs/audience-api/
+- type: GettingStarted
+  url: https://developer.disqo.com/docs/audience-api/
+- type: Blog
+  url: https://developer.disqo.com/blog/
+- type: Support
+  url: https://www.disqo.com/contact-us/
+- type: TermsOfService
+  url: https://www.disqo.com/legal/api-managed-services-terms/
+- type: PrivacyPolicy
+  url: https://www.disqo.com/privacy-policy/
+- type: Postman
+  url: postman/disqo-audience-api-postman.json
+- type: LLMsTxt
+  url: llms/disqo-llms.txt
+- type: Authentication
+  url: authentication/disqo-authentication.yml
+- type: Conventions
+  url: conventions/disqo-conventions.yml
+- type: ErrorCatalog
+  url: errors/disqo-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/disqo-lifecycle.yml
+- type: ChangeLog
+  url: changelog/disqo-changelog.yml
+- type: Sandbox
+  url: sandbox/disqo-sandbox.yml
+- type: DataModel
+  url: data-model/disqo-data-model.yml
+- type: Conformance
+  url: conformance/disqo-conformance.yml
+- type: Packages
+  url: packages/disqo-packages.yml
+- type: DomainSecurity
+  url: security/disqo-domain-security.yml
+x-enrichment:
+  date: '2026-08-04'
+  status: enriched
+  artifacts_added: 15
+  pass: local-v1

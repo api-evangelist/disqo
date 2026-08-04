@@ -1,0 +1,74 @@
+generated: '2026-08-04'
+method: searched
+source: https://developer.disqo.com/docs/audience-api/
+docs:
+- https://developer.disqo.com/docs/audience-api/
+- https://developer.disqo.com/docs/coreg-api/
+summary:
+  types: [http, apiKey]
+  http_schemes: [basic]
+  api_key_in: [header]
+  oauth2_flows: []
+  oauth2: false
+  openid_connect: false
+  mutual_tls: false
+  note: >-
+    DISQO uses no OAuth 2.0 and no OpenID Connect on any public API. The Audience
+    API family is HTTP Basic (clientId as username, API key as password); the
+    CoReg API is a bearer-style ApiKey header. There is therefore no scope
+    surface — scopes/ is intentionally not emitted for this provider.
+schemes:
+- name: audienceBasicAuth
+  type: http
+  scheme: basic
+  applies_to:
+  - https://projects-api.audience.disqo.com
+  - https://feasibility-api.audience.disqo.com
+  - https://custom-questions-api.audience.disqo.com
+  credentials:
+    username: clientId
+    password: API key
+  header: 'Authorization: Basic {base64(clientId:apiKey)}'
+  encoding: 'echo -n {clientId}:{apiKey} | base64'
+  provisioning: >-
+    Credentials are issued by DISQO during onboarding; the demo/sandbox
+    environment uses a separate credential pair requested from the integration
+    contact. There is no self-service key issuance.
+  source: https://developer.disqo.com/docs/audience-api/
+- name: coregApiKey
+  type: apiKey
+  in: header
+  name_param: Authorization
+  value_format: 'ApiKey {uniqueApiKey}'
+  applies_to:
+  - https://coreg.us.sjapis.com/api
+  provisioning: >-
+    "An API Key will be provided to use the API. If one has not been provided,
+    contact your Account Manager."
+  source: https://developer.disqo.com/docs/coreg-api/
+message_authentication:
+- name: callbackHmac
+  purpose: >-
+    Integrity of the panelist redirect/callback. Every parameter on the callback
+    URL preceding &auth is signed and the signature is appended as auth.
+  algorithm: HMAC-SHA256
+  encoding: base64url, unpadded (URL-safe, no padding)
+  key: shared secret key issued by DISQO
+  applies_to:
+  - https://go.audience.disqo.com/callback/
+  - https://go.audience.disqo-demo.com/callback/
+  source: https://developer.disqo.com/docs/audience-api/
+transport:
+  https_required: true
+  tls_observed: TLSv1.3
+  source: security/disqo-domain-security.yml
+gaps_to_push_back_to_provider:
+- >-
+  HTTP Basic with a long-lived shared secret is the only client authentication
+  offered. There is no OAuth 2.0 client-credentials flow, no key rotation
+  endpoint, and no documented key-expiry policy — all of which an agent or a
+  multi-tenant integrator needs.
+- >-
+  No machine-readable declaration of these schemes exists (no OpenAPI
+  securitySchemes), so the auth contract can only be read by a human from the
+  Slate docs.

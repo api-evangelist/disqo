@@ -1,0 +1,72 @@
+generated: '2026-08-04'
+method: searched
+source: >-
+  npm registry search, PyPI, RubyGems, Packagist, crates.io, NuGet
+  (azuresearch-usnc), and https://developer.disqo.com/ — probed 2026-08-04
+summary:
+  official_public_client_libraries: 0
+  note: >-
+    DISQO publishes NO first-party client library for the Audience API, the
+    Feasibility API, the Custom Questions API, or the CoReg API on any public
+    package registry. Every documented example is a raw curl invocation, and the
+    only runnable artifact DISQO ships is the public Postman collection. Because
+    no publicly obtainable official SDK exists, NO `type: SDKs` pointer is wired
+    in apis.yml — the `Packages` pointer records the absence honestly.
+registries_probed:
+- {registry: npm, query: disqo, first_party_hits: 0}
+- {registry: pypi, packages_checked: [disqo, disqo-api, pydisqo], hits: 0}
+- {registry: rubygems, query: disqo, hits: 0}
+- {registry: packagist, query: disqo, first_party_hits: 0}
+- {registry: crates.io, query: disqo, hits: 0}
+- {registry: nuget, query: disqo, first_party_hits: 0}
+- {registry: 'GitHub organizations', query: 'github.com/disqo', result: 'no DISQO organization found'}
+packages: []
+related_packages:
+- language: typescript
+  registry: npm
+  name: '@capgo/capacitor-disqo'
+  url: https://www.npmjs.com/package/@capgo/capacitor-disqo
+  install: npm install @capgo/capacitor-disqo
+  official: false
+  vendor: Capgo (third party)
+  repository: https://github.com/Cap-go/capacitor-disqo
+  description: >-
+    Capacitor bridge wrapping "Disqo's Android Pulse SDK" behind a TypeScript API —
+    initialize the SDK, start/stop tracking, deep-link into Android accessibility
+    settings, query service state, and resolve Pulse access-token callbacks.
+  note: >-
+    Third-party, and unrelated to the Audience API. Its existence is the only
+    public evidence of a first-party DISQO Pulse Android SDK (the panelist-side
+    behavioural-measurement SDK).
+known_unpublished_sdks:
+- name: DISQO Pulse Android SDK
+  platform: android
+  official: true
+  public_registry: null
+  distribution: partner / private — no Maven coordinate, download page, or documentation found on any DISQO host
+  evidence: >-
+    Referenced as "Disqo's Android Pulse SDK" by the third-party
+    @capgo/capacitor-disqo package (README and package description, npm registry,
+    fetched 2026-08-04). No DISQO-hosted documentation for it exists at
+    developer.disqo.com.
+  note: >-
+    Not counted as an official SDK for rating purposes: it is not publicly
+    obtainable and is not a client for any API in this profile.
+gaps_to_push_back_to_provider:
+- >-
+  Ship an official Audience API client for at least JavaScript/TypeScript and
+  Python and publish it to npm and PyPI. The API's users are research-ops and
+  panel-integration engineers, and today every one of them writes their own HTTP
+  Basic wrapper and HMAC-SHA256 signer from the Slate docs.
+- >-
+  The HMAC-SHA256 callback signing/verification routine is the highest-risk piece
+  of the integration and is currently prose plus a walkthrough. A tiny published
+  library that signs and verifies entry links would remove a whole class of
+  integration defect.
+- >-
+  Document the DISQO Pulse Android SDK publicly (Maven coordinate, versioning,
+  changelog) or state that it is partner-only. A third-party Capacitor bridge is
+  currently the most discoverable artifact about it.
+- >-
+  Create a public github.com/disqo organization. DISQO runs an engineering blog
+  at developer.disqo.com but has no public code presence at all.
