@@ -38,6 +38,11 @@ apis:
   humanURL: https://developer.disqo.com/docs/audience-api/
   baseURL: https://projects-api.audience.disqo.com
   tags:
+  - Project
+  - Quotas
+  - Surveys
+  - Audience
+  tags_raw:
   - Projects
   - Quotas
   - Surveys
