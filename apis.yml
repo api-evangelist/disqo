@@ -11,6 +11,17 @@ description: 'DISQO is a Glendale, California consumer-insights and advertising-
   Lift, Outcomes Lift, Research Management and cross-platform ad measurement products
   on top of the same panel.'
 url: https://raw.githubusercontent.com/api-evangelist/disqo/refs/heads/main/apis.yml
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.disqo.com/wp-content/uploads/2025/11/HomePage_Header.png
 x-type: company
 x-source: harvest:secondary-market
