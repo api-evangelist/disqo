@@ -44,6 +44,17 @@ created: '2026-08-04'
 modified: '2026-08-04'
 tags:
 - Company
+- Audiences
+- Market Research
+- Surveys
+- Consumer Insights
+- Advertising Measurement
+- Panel
+- Brand Lift
+- Data
+- Analytics
+tags_raw:
+- Company
 - Audience
 - Market Research
 - Surveys
@@ -66,7 +77,7 @@ apis:
   - Project
   - Quotas
   - Surveys
-  - Audience
+  - Audiences
   tags_raw:
   - Projects
   - Quotas
@@ -93,6 +104,10 @@ apis:
   baseURL: https://feasibility-api.audience.disqo.com
   tags:
   - Feasibility
+  - Audiences
+  - Surveys
+  tags_raw:
+  - Feasibility
   - Audience
   - Surveys
   properties:
@@ -105,6 +120,10 @@ apis:
   humanURL: https://developer.disqo.com/docs/audience-api/
   baseURL: https://custom-questions-api.audience.disqo.com
   tags:
+  - Custom Questions
+  - Audiences
+  - Surveys
+  tags_raw:
   - Custom Questions
   - Audience
   - Surveys
