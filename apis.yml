@@ -138,6 +138,10 @@ apis:
   humanURL: https://developer.disqo.com/docs/coreg-api/
   baseURL: https://coreg.us.sjapis.com/api
   tags:
+  - Email Verification
+  - CoReg
+  - Identity
+  tags_raw:
   - Email Validation
   - CoReg
   - Identity
