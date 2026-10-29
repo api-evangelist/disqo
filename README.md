@@ -64,44 +64,102 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-DISQO is a Glendale, California consumer-insights and advertising-measurement company that
-operates a first-party, fully opted-in consumer panel and sells programmatic access to it.
+DISQO is a Glendale, California consumer-insights and advertising-measurement company that operates a first-party, fully opted-in consumer panel and sells programmatic access to it. Its public API surface is the DISQO Audience API — a RESTful, HTTP Basic authenticated set of services for checking sample feasibility, creating and managing survey projects and quotas, attaching custom screening questions, and managing included/excluded panelist and project lists — plus a redirect/callback tracking contract that returns panelists to DISQO with an HMAC-SHA256 signed status. A separate CoReg API validates email addresses for co-registration flows. DISQO also sells Brand Lift, Outcomes Lift, Research Management and cross-platform ad measurement products on top of the same panel.
 
-- Website: https://www.disqo.com/
-- Developer portal: https://developer.disqo.com/
-- Documentation: https://developer.disqo.com/documentation/
+**Areas:** Company · Audiences · Market Research · Surveys · Consumer Insights · Advertising Measurement · Panel · Brand Lift · Data · Analytics
 
-## APIs profiled
+## DISQO on APIs.io
 
-| API | Base URL | Auth | Docs |
-|---|---|---|---|
-| Audience Projects API | `https://projects-api.audience.disqo.com` | HTTP Basic | [docs](https://developer.disqo.com/docs/audience-api/) |
-| Audience Feasibility API | `https://feasibility-api.audience.disqo.com` | HTTP Basic | [docs](https://developer.disqo.com/docs/audience-api/) |
-| Audience Custom Questions API | `https://custom-questions-api.audience.disqo.com` | HTTP Basic | [docs](https://developer.disqo.com/docs/audience-api/) |
-| CoReg API | `https://coreg.us.sjapis.com/api` | `Authorization: ApiKey` | [docs](https://developer.disqo.com/docs/coreg-api/) |
+Everything profiled for DISQO is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/disqo/](https://apis.io/providers/disqo/)** — or go straight to one of the APIs or properties below.
 
-## What DISQO publishes
+### APIs (4)
 
-- A public **Postman collection** for the Audience API (18 requests), linked from the docs — captured
-  verbatim in `postman/`.
-- A dated **changelog** embedded in the Audience API documentation — captured in `changelog/`.
-- A full parallel **DEMO/sandbox environment** on `disqo-demo.com`, with `verify` endpoints — `sandbox/`.
-- An **llms.txt** at `https://www.disqo.com/llms.txt` — captured verbatim in `llms/`.
-- A published **error-code registry** and callback status/substatus vocabulary — `errors/`.
+- [DISQO Audience Projects API](https://apis.io/apis/disqo/disqo-audience-projects-api/) — Create, list, retrieve, update and delete survey Projects and their Quotas against the DISQO panel, and manage the included-users, excluded-users and…
+- [DISQO Audience Feasibility API](https://apis.io/apis/disqo/disqo-audience-feasibility-api/) — Estimate the number of panelists — feasible completes — available for a given set of qualifications, country, device mix, length of interview and incidence…
+- [DISQO Audience Custom Questions API](https://apis.io/apis/disqo/disqo-audience-custom-questions-api/) — List, retrieve and create client-specific custom screening questions that can be attached to a project as pre-screening qualifications beyond the standard…
+- [DISQO CoReg API](https://apis.io/apis/disqo/disqo-coreg-api/) — Validate an email address for co-registration flows — checks address format, whether the address already exists in the DISQO system, and optionally runs an…
 
-## What DISQO does not publish
+### Published properties
 
-Recorded as evidence of absence, with the probe results, in the artifacts:
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **No OpenAPI / Swagger.** Probed nine spec paths against all three Audience API hosts (all `401` —
-  HTTP Basic is enforced at the edge for every path) and against the docs and marketing hosts (all
-  `404`). See `conformance/disqo-conformance.yml`.
-- **No `/.well-known/` surface at all** — no `security.txt`, no `api-catalog`, no agent card. See
-  `well-known/disqo-well-known.yml`.
-- **No official SDK on any package registry**, and no `github.com/disqo` organization. See `packages/`.
-- **No status page, no SLA, no deprecation policy.** See `lifecycle/`.
-- **No idempotency, no pagination, no documented rate limits.** See `conventions/`.
-- **No trust center or named certification.** See `conformance/`.
+#### MCP servers (1)
 
-Each artifact carries a `gaps_to_push_back_to_provider` block naming the gap and where DISQO should
-publish the fix.
+Model Context Protocol servers that expose the API to agents.
+
+- [disqo](https://apis.io/servers/disqo/disqo/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Disqo Authentication](https://apis.io/security/disqo/disqo-authentication/)
+- [Disqo Domain Security](https://apis.io/security/disqo/disqo-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.disqo.com/)
+- [Documentation](https://developer.disqo.com/documentation/)
+- [Getting started](https://developer.disqo.com/docs/audience-api/)
+- [API reference](https://developer.disqo.com/docs/audience-api/)
+- [Support](https://www.disqo.com/contact-us/)
+- [Blog](https://developer.disqo.com/blog/)
+- [Terms of service](https://www.disqo.com/legal/api-managed-services-terms/)
+- [Privacy policy](https://www.disqo.com/privacy-policy/)
+
+## API Evangelist rating
+
+**Kin Score 29.9** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 80.0 |
+| Contract quality | 0.0 |
+| Contract governance | 4.5 |
+| Operational transparency | 15.8 |
+| Developer ergonomics | 68.6 |
+| Access clarity | 21.1 |
+
+**Agent readiness 17.6** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/disqo/](https://apis.io/providers/disqo/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for DISQO: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/disqo/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
